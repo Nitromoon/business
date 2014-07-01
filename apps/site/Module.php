@@ -22,6 +22,7 @@ class Module implements ModuleDefinitionInterface
         $loader->registerNamespaces(array(
             'Business\Site\Controllers' => __DIR__ . '/controllers/',
             'Business\Site\Models' => __DIR__ . '/models/',
+            'Business\Common\Services' => __DIR__.'/../common/services/'
         ));
 
         $loader->register();
