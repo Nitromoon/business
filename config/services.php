@@ -46,3 +46,11 @@ $di['session'] = function () {
 
     return $session;
 };
+
+
+/** Register custom services here */
+$di['news'] = function ()
+{
+    $news = new Business\Common\Services\News();
+    return $news;
+};
