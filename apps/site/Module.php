@@ -44,9 +44,21 @@ class Module implements ModuleDefinitionInterface
         /**
          * Setting up the view component
          */
-        $di['view'] = function () {
+        $di['view'] = function () use ($di, $config) {
             $view = new View();
-            $view->setViewsDir(__DIR__ . '/views/');
+            $view->setViewsDir($config->application->viewsDir);
+
+            $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
+
+            $volt->setOptions(
+                array(
+                    'compiledPath' => $config->volt->path,
+                    'compiledExtension' => $config->volt->extension,
+                    'compiledSeparator' => $config->volt->separator,
+                    'stat' => (bool)$config->volt->stat,
+                )
+            );
+            $view->registerEngines(array('.phtml' => $volt));
 
             return $view;
         };
