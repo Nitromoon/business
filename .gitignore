@@ -1,4 +1,5 @@
 .phalcon
 .idea/*
 apps/site/volt/*
+public/local_config.php
 *~

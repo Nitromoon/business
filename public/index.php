@@ -5,7 +5,7 @@ use Phalcon\Mvc\Application;
 error_reporting(E_ALL);
 
 try {
-
+    include 'local_config.php';
     /**
      * Include services
      */

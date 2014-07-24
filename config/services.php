@@ -8,6 +8,8 @@ use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Mvc\Model\MetaData\Apc as ApcMetaData,
+    Phalcon\Mvc\Model\MetaData\Strategy\Annotations as StrategyAnnotations;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -45,6 +47,20 @@ $di['session'] = function () {
     $session->start();
 
     return $session;
+};
+
+$di['modelsMetadata'] = function() {
+
+    // Instantiate a meta-data adapter
+    $metaData = new ApcMetaData(array(
+        "lifetime" => 86400,
+        "prefix"   => "my-prefix"
+    ));
+
+    //Set a custom meta-data database introspection
+    $metaData->setStrategy(new StrategyAnnotations());
+
+    return $metaData;
 };
 
 
