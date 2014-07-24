@@ -21,7 +21,7 @@ class Module implements ModuleDefinitionInterface
 
         $loader->registerNamespaces(array(
             'Business\Site\Controllers' => __DIR__ . '/controllers/',
-            'Business\Site\Models' => __DIR__ . '/models/',
+            'Business\Common\Models' => __DIR__ . '/../common/models/',
             'Business\Common\Services' => __DIR__.'/../common/services/'
         ));
 
@@ -40,6 +40,7 @@ class Module implements ModuleDefinitionInterface
          * Read configuration
          */
         $config = include __DIR__ . "/config/config.php";
+        $dbConfig = include __DIR__."/../common/config/database.config.php";
 
         /**
          * Setting up the view component
@@ -66,12 +67,12 @@ class Module implements ModuleDefinitionInterface
         /**
          * Database connection is created based in the parameters defined in the configuration file
          */
-        $di['db'] = function () use ($config) {
+        $di['db'] = function () use ($dbConfig) {
             return new DbAdapter(array(
-                "host" => $config->database->host,
-                "username" => $config->database->username,
-                "password" => $config->database->password,
-                "dbname" => $config->database->name
+                "host" => $dbConfig->database->host,
+                "username" => $dbConfig->database->username,
+                "password" => $dbConfig->database->password,
+                "dbname" => $dbConfig->database->dbname
             ));
         };
 
